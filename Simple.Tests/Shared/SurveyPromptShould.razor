@@ -1,0 +1,27 @@
+﻿@using Xunit
+@using FluentAssertions
+@using Bunit
+
+@inherits Bunit.TestContext
+
+@code {
+
+    [Fact]
+    public void DisplayTitle()
+    {
+        var component = Render(@<SurveyPrompt Title="Welcome to Blazor!"/>);
+
+        component.Markup.Should().Contain("Welcome to Blazor!");
+    }
+
+    [Fact]
+    public void DisplayLink()
+    {
+        var component = Render(@<SurveyPrompt Title="Hello"/>);
+
+        var link = component.Find("a");
+
+        link.Attributes["href"].Value.Should().Be("https://go.microsoft.com/fwlink/?linkid=2148851");
+        link.Attributes["target"].Value.Should().Be("_blank");
+    }
+}
